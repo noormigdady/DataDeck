@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from ex0.CreatureFactory import Creature
-from ex1.capabilities import HealCapability, TransformCapability
-from typing import cast
+from ex0.creatures import Creature
+from ex1.Capabilities import HealCapability, TransformCapability
 
 
 class BattleStrategy(ABC):
@@ -30,10 +29,10 @@ class AggressiveStrategy(BattleStrategy):
         if not self.is_valid(creature):
             raise ValueError(f"Invalid Creature '{type(creature).__name__}'"
                              f" for this aggressive strategy")
-        agg_creature = cast(TransformCapability, creature)
-        print(agg_creature.transform())
-        print(creature.attack())
-        print(agg_creature.revert())
+        if isinstance(creature, TransformCapability):
+            print(creature.transform())
+            print(creature.attack())
+            print(creature.revert())
 
 
 class DefensiveStrategy(BattleStrategy):
@@ -44,6 +43,6 @@ class DefensiveStrategy(BattleStrategy):
         if not self.is_valid(creature):
             raise ValueError(f"Invalid Creature '{type(creature).__name__}'"
                              f" for this Defensive strategy")
-        defens_creature = cast(HealCapability, creature)
-        print(creature.attack())
-        print(defens_creature.heal())
+        if isinstance(creature, HealCapability):
+            print(creature.attack())
+            print(creature.heal())

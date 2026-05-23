@@ -1,37 +1,46 @@
-from ex1 import HealingCreatureFactory, TransformCreatureFactory
+from ex1.Factories import HealingCreatureFactory, TransformCreatureFactory
+from ex0 import CreatureFactory
+
+
+def manage_creatures(factory: CreatureFactory) -> None:
+    if isinstance(factory, HealingCreatureFactory):
+        print("base:")
+        base_h = factory.create_base()
+        print(base_h.describe())
+        print(base_h.attack())
+        print(base_h.heal())
+        print("evolved: ")
+        evolved_h = factory.create_evolved()
+        print(evolved_h.describe())
+        print(evolved_h.attack())
+        print(evolved_h.heal())
+
+    elif isinstance(factory, TransformCreatureFactory):
+        print("base:")
+        base_t = factory.create_base()
+        print(base_t.describe())
+        print(base_t.attack())
+        print(base_t.transform())
+        print(base_t.attack())
+        print(base_t.revert())
+        print("evolved: ")
+        evolved_t = factory.create_evolved()
+        print(evolved_t.describe())
+        print(evolved_t.attack())
+        print(evolved_t.transform())
+        print(evolved_t.attack())
+        print(evolved_t.revert())
+    print()
 
 
 def main() -> None:
-    print("Testing Creature with healing capability")
-    healing_factory = HealingCreatureFactory()
-    print("base:")
-    base1 = healing_factory.create_base()
-    print(base1.describe())
-    print(base1.attack())
-    print(base1.heal())
-    print("evolved:")
-    evolved1 = healing_factory.create_evolved()
-    print(evolved1.describe())
-    print(evolved1.attack())
-    print(evolved1.heal())
-    print()
+    heal_fact = HealingCreatureFactory()
+    transform_fact = TransformCreatureFactory()
 
-    print("Testing Creature with transform capability")
-    transform_factory = TransformCreatureFactory()
-    print("base:")
-    base2 = transform_factory.create_base()
-    print(base2.describe())
-    print(base2.attack())
-    print(base2.transform())
-    print(base2.attack())
-    print(base2.revert())
-    print("evolved:")
-    evolved2 = transform_factory.create_evolved()
-    print(evolved2.describe())
-    print(evolved2.attack())
-    print(evolved2.transform())
-    print(evolved2.attack())
-    print(evolved2.revert())
+    print("Testing Creature with healing capability")
+    manage_creatures(heal_fact)
+    print("Testing Creature with healing capability")
+    manage_creatures(transform_fact)
 
 
 if __name__ == "__main__":
